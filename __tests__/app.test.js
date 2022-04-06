@@ -63,4 +63,24 @@ describe('gitty routes', () => {
 
     expect(res.body).toEqual(expected);
   });
+
+  it('should allow a logged in user to post a geet', async () => {
+    const agent = request.agent(app);
+
+    await agent
+      .get('/api/v1/github/login/callback?code=42')
+      .redirects(1);
+
+    const res = await agent
+      .post('/api/v1/geets')
+      .send({
+        title: 'secret geet',
+        description: 'uber secrets no eyes!'
+      });
+
+    expect(res.body).toEqual({
+      title: 'secret geet',
+      description: 'uber secrets no eyes!'
+    });
+  });
 });
