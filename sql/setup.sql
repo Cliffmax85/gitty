@@ -16,3 +16,9 @@ CREATE TABLE geets (
     description VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+INSERT INTO
+  geets(title, description)
+VALUES
+  ('this is a geet', 'it is super secret and how are you reading this?'),
+  ('my second geet', 'seriously stop reading my secret geets');
