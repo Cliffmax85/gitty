@@ -79,6 +79,7 @@ describe('gitty routes', () => {
       });
 
     expect(res.body).toEqual({
+      id: expect.any(String),
       title: 'secret geet',
       description: 'uber secrets no eyes!'
     });
