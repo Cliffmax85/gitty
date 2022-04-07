@@ -13,6 +13,11 @@ CREATE TABLE github_users (
 CREATE TABLE geets (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     title TEXT NOT NULL,
-    description VARCHAR(255) NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    description VARCHAR(255) NOT NULL
 );
+
+INSERT INTO
+  geets(title, description)
+VALUES
+  ('this is a geet', 'it is super secret and how are you reading this?'),
+  ('my second geet', 'seriously stop reading my secret geets');

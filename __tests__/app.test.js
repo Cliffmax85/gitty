@@ -40,4 +40,48 @@ describe('gitty routes', () => {
       message: 'You have logged out'
     });
   });
+
+  it('should list all posts for users', async () => {
+    const agent = request.agent(app);
+    await agent
+      .get('/api/v1/github/login/callback?code=42')
+      .redirects(1);
+    
+    const res = await agent
+      .get('/api/v1/geets');
+
+    
+    const expected = [{
+      id: expect.any(String),
+      title: 'this is a geet',
+      description: 'it is super secret and how are you reading this?',
+    }, {
+      id: expect.any(String),
+      title: 'my second geet',
+      description: 'seriously stop reading my secret geets',
+    }];
+
+    expect(res.body).toEqual(expected);
+  });
+
+  it('should allow a logged in user to post a geet', async () => {
+    const agent = request.agent(app);
+
+    await agent
+      .get('/api/v1/github/login/callback?code=42')
+      .redirects(1);
+
+    const res = await agent
+      .post('/api/v1/geets')
+      .send({
+        title: 'secret geet',
+        description: 'uber secrets no eyes!'
+      });
+
+    expect(res.body).toEqual({
+      id: expect.any(String),
+      title: 'secret geet',
+      description: 'uber secrets no eyes!'
+    });
+  });
 });
