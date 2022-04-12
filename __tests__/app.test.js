@@ -84,4 +84,14 @@ describe('gitty routes', () => {
       description: 'uber secrets no eyes!'
     });
   });
+
+  it('should get 3 quotes from 3 different apis', async () => {
+    const expected = [
+      { author: expect.any(String), content: expect.any(String) },
+      { author: expect.any(String), content: expect.any(String) },
+      { author: expect.any(String), content: expect.any(String) },
+    ];
+    const res = await request(app).get('/api/v1/quotes');
+    expect(res.body).toEqual(expected);
+  });
 });
